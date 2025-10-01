@@ -29,3 +29,8 @@ They are dependent on that abstraction:
 https://github.com/Electrostat-Lab/Electrostatic-application/blob/0a4d1cb1635df59e5753aad2e2fad8a380d87706/helper-scripts/abstract/abstract-compile.sh#L1-L35
 
 ## Build front-end automata, CMake, and Toolchains
+Essentially, the build architecture of the Electrostatic-Sandbox SDK is based on the idea of creating a front-end scripted API that creates a building automata, which entails taking an input and passing into a chain of states, and eventually ending with a terminal state; thus the recognition of the machine to the building holds if the terminal state is being reached by the program counter. The initial input to the automata is mainly a building routine instruction and the outputs are proceeded and could be found at the filesystems cmake-build and build, where the terminal output is produced.
+
+The build of the Electrostatic-applications is much simpler than the SDK; it's literally a subset of it.
+
+For more; refer to the [build architecture of the Electrostatic-Sandbox SDK](https://github.com/Electrostat-Lab/Electrostatic-Sandbox/blob/master/electrostatic-sandbox-framework/docs/system-build/architecture.md).
