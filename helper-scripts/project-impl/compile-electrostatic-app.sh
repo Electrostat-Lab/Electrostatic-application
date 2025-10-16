@@ -18,12 +18,20 @@ BUILTIN_LIBS="${9}"
 SOURCE_DIR="${10}"
 SYSTEM_DIR="${11}"
 BUILD_DIR="${12}"
+DYNAMIC_LINKING="${13}"
+POST_PROCESSING="${14}"
 
 # precompile scripts
 sources=$(find ${CODEBASE_MODULES[*]} -name *.c -o -name *.cpp -o -name *.cxx | tr '\n' ';')
 
 if [ "${DEPENDENCIES_MODULES[*]}" != "${NULL}" ]; then
+  if [ "${DYNAMIC_LINKING}" == "true" ]; then
+    echo -e "--------- Deferring Linking to runtime ---------"
+    dependencies=$(find ${DEPENDENCIES_MODULES[*]} -name *.so | tr '\n' ';')
+  else
+    echo -e "--------- Performing Static Linking ---------"
     dependencies=$(find ${DEPENDENCIES_MODULES[*]} -name *.a -o -name *.ar | tr '\n' ';')
+  fi
 fi
 
 # compile scripts
@@ -32,3 +40,15 @@ compile "${COMMISSION_OUTPUT}" "${GCC_BIN}" "${GPP_BIN}" \
         "${TARGET_MACHINE}" "${HEADERS}" \
         "${SOURCE_DIR}" "${sources}" "${dependencies};${BUILTIN_LIBS}" \
         "${SYSTEM_DIR}/${BUILD_DIR}" "." "${SOURCE_DIR}"
+
+# post-compilation automata
+if [ "${POST_PROCESSING}" == "true" ]; then
+  mkdir --parents "$(pwd)/build/${SYSTEM_DIR}/${BUILD_DIR}"
+  mkdir --parents "$(pwd)/build/${SYSTEM_DIR}/${BUILD_DIR}"
+
+  mv --update "$(pwd)/cmake-build/${SYSTEM_DIR}/${BUILD_DIR}/${COMMISSION_EXE}.elf" \
+      "$(pwd)/build/${SYSTEM_DIR}/${BUILD_DIR}"
+
+  mv --update "$(pwd)/cmake-build/${SYSTEM_DIR}/${BUILD_DIR}/${COMMISSION_EXE}.elf" \
+      "$(pwd)/build/${SYSTEM_DIR}/${BUILD_DIR}"
+fi
