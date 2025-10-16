@@ -43,12 +43,7 @@ compile "${COMMISSION_OUTPUT}" "${GCC_BIN}" "${GPP_BIN}" \
 
 # post-compilation automata
 if [ "${POST_PROCESSING}" == "true" ]; then
-  mkdir --parents "$(pwd)/build/${SYSTEM_DIR}/${BUILD_DIR}"
-  mkdir --parents "$(pwd)/build/${SYSTEM_DIR}/${BUILD_DIR}"
-
-  mv --update "$(pwd)/cmake-build/${SYSTEM_DIR}/${BUILD_DIR}/${COMMISSION_EXE}.elf" \
-      "$(pwd)/build/${SYSTEM_DIR}/${BUILD_DIR}"
-
-  mv --update "$(pwd)/cmake-build/${SYSTEM_DIR}/${BUILD_DIR}/${COMMISSION_EXE}.elf" \
-      "$(pwd)/build/${SYSTEM_DIR}/${BUILD_DIR}"
+    chmod +rwx ./helper-scripts/project-impl/post-compile/post-compile-electrostatic.sh
+    ./helper-scripts/project-impl/post-compile/post-compile-electrostatic.sh \
+      "${SYSTEM_DIR}" "${BUILD_DIR}" "${COMMISSION_OUTPUT}"
 fi
