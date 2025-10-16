@@ -28,6 +28,14 @@ https://github.com/Electrostat-Lab/Electrostatic-application/blob/0a4d1cb1635df5
 They are dependent on that abstraction: 
 https://github.com/Electrostat-Lab/Electrostatic-application/blob/0a4d1cb1635df59e5753aad2e2fad8a380d87706/helper-scripts/abstract/abstract-compile.sh#L1-L35
 
+## Changing the project output name
+This could be attained by changing the variable `COMMISSION_EXE` in the `./helper-scripts/project-impl/variables.sh`:
+https://github.com/Electrostat-Lab/Electrostatic-application/blob/4963fe780fbb90f48d0fe2448488f006e202e88e/helper-scripts/project-impl/variables.sh#L9
+
+## Adding new dependencies
+Add your dependencies in the `libs` directory with the system directory of choice if required (in case of platform-dependent binaries); the build script finds all libraries listed under this directory through this code snippet:
+https://github.com/Electrostat-Lab/Electrostatic-application/blob/4963fe780fbb90f48d0fe2448488f006e202e88e/helper-scripts/project-impl/compile-electrostatic-app.sh#L27-L43
+
 ## Build front-end automata, CMake, and Toolchains
 Essentially, the build architecture of the Electrostatic-Sandbox SDK is based on the idea of creating a front-end scripted API that creates a building automata, which entails taking an input and passing into a chain of states, and eventually ending with a terminal state; thus the recognition of the machine to the building holds if the terminal state is being reached by the program counter. The initial input to the automata is mainly a building routine instruction and the outputs are proceeded and could be found at the filesystems cmake-build and build, where the terminal output is produced.
 
