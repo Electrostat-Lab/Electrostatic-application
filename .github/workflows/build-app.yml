@@ -1,0 +1,40 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build Electrostatic-Application
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-electrostatic-app:
+    # runner images with architectures (variants)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ 'ubuntu-latest' ]
+    name: Build Electrostatic App
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout Job
+        uses: actions/checkout@v3
+
+      - name: Setup Electrostatic-Sandbox Workstation
+        run: chmod +rwx ./helper-scripts/setup-environment/setup-sandbox.sh && ./helper-scripts/setup-environment/setup-sandbox.sh
+
+      - name: User's Permissions Granting
+        run: chmod +rwx ./helper-scripts/project-impl/*.sh
+
+      - name: Building Electrostatic-application Executable Binaries
+        run: sudo ./helper-scripts/project-impl/compile-all.sh
+
+      - name: Testing Electrostatic-app ELF
+        run: sudo ./build/linux/x86-64/electrostatic-app.elf
