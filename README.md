@@ -3,6 +3,12 @@
 
 This is a template that builds a cross-platform native executable application for Linux variants, Android variants, and AVR MCU variants utilizing the Electrostatic-Sandbox SDK libraries.
 
+## System Requirements
+1) A GNU/Linux System or a WSL System.
+2) A minimum of 1GB RAM, and 4GB Disk Space.
+3) If planned Microcontroller development; ATMega32 and/or ATMega328p are the currently supported ones.
+4) If planned Android development; all Android variants are supported.
+
 ## Setup the Electrostatic Environment
 This will install missing dependencies (CLI tools and toolchains) in `/opt/electrostatic-sandbox` that shall be utilized by the SDK build front-end and CMake to build the applications.
 
